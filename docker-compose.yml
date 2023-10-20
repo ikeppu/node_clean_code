@@ -1,0 +1,7 @@
+version: '3'
+services:
+  nodeapp:
+    build:
+      context: ./clean-architecture-with-node_starter
+    ports:
+      - '3000:3000'
