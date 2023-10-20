@@ -13,7 +13,7 @@ module.exports = {
     const index = inMemoryDB.users.findIndex((i) => i.id === user.id);
     if (index >= 0) {
       inMemoryDB.users[index] = user;
-      return inMemoryDB.users;
+      return inMemoryDB.users[index];
     }
 
     return null;
@@ -22,7 +22,7 @@ module.exports = {
     const index = inMemoryDB.users.findIndex((i) => i.id === user.id);
 
     if (index >= 0) {
-      inMemoryDB.users.splice(index, 0);
+      inMemoryDB.users.splice(index, 1);
       return user;
     }
 
