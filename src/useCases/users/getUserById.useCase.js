@@ -1,13 +1,20 @@
-module.exports = (dependecies) => {
-  const { usersRepository } = dependecies;
+module.exports = dependencies => {
 
-  if (!usersRepository) {
-    throw new Error("The users repository should be exist in dependicies");
-  }
+    const {
+        usersRepository
+    } = dependencies;
 
-  const execute = (user = {}) => {
-    return usersRepository.update(user);
-  };
+    if (!usersRepository) {
+        throw new Error('The users repository should be exist in dependencies');
+    }
 
-  return { execute };
-};
+    const execute = ({
+        id
+    }) => {
+        return usersRepository.getById(id);
+    }
+
+    return {
+        execute
+    }
+}

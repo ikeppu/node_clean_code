@@ -1,17 +1,20 @@
-const { User } = require("../../entities");
+module.exports = dependencies => {
 
-module.exports = (dependecies) => {
-  const { usersRepository } = dependecies;
+    const {
+        usersRepository
+    } = dependencies;
 
-  if (!usersRepository) {
-    throw new Error("The users repository should be exist in dependicies");
-  }
+    if (!usersRepository) {
+        throw new Error('The users repository should be exist in dependencies');
+    }
 
-  const execute = ({ name, lastname, gender, meta }) => {
-    const user = new User({ name, lastname, gender, meta });
+    const execute = ({
+        user = {}
+    }) => {
+        return usersRepository.update(user);
+    }
 
-    return usersRepository.add(user);
-  };
-
-  return { execute };
-};
+    return {
+        execute
+    }
+}

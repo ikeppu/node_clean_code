@@ -1,17 +1,25 @@
-const { Product } = require("../../entities");
+const { Product } = require('../../entities');
 
-module.exports = (dependecies) => {
-  const { productRepository } = dependecies;
+module.exports = (dependencies) => {
+  const { productsRepository } = dependencies;
 
-  if (!productRepository) {
-    throw new Error("The product repository should be exist in dependicies");
+  if (!productsRepository) {
+    throw new Error('productsRepository should be in dependencies');
   }
 
-  const execute = ({ name, desc, images, price, color, meta }) => {
-    const product = new Product({ name, desc, images, price, color, meta });
-
-    return productRepository.add(product);
+  const execute = ({ name, description, images, price, color, meta }) => {
+    const product = new Product({
+      name,
+      description,
+      images,
+      price,
+      color,
+      meta,
+    });
+    return productsRepository.add(product);
   };
 
-  return { execute };
+  return {
+    execute,
+  };
 };

@@ -1,34 +1,36 @@
-const { inMemory: inMemoryDB } = require('../../database');
-const { v4: uuidv4 } = require('uuid');
+const {
+    inMemory: inMemoryDb
+} = require('../../database');
+
+const {
+    v4: uuidv4
+} = require('uuid');
 
 module.exports = {
-  add: async (user) => {
-    if (!user.id) {
-      user.id = uuidv4();
+    add: async user => {
+        if (!user.id) {
+            user.id = uuidv4();
+        }
+        inMemoryDb.users.push(user);
+        return user;
+    },
+    update: async user => {
+        const index = inMemoryDb.users.findIndex(item => item.id === user.id);
+        if (index >= 0) {
+            inMemoryDb.users[index] = user;
+            return inMemoryDb.users[index];
+        }
+        return null;
+    },
+    delete: async user => {
+        const index = inMemoryDb.users.findIndex(item => item.id === user.id);
+        if (index >= 0) {
+            inMemoryDb.users.splice(index, 1);
+            return user;
+        }
+        return null;
+    },
+    getById: async id => {
+        return inMemoryDb.users.find(item => item.id === id);
     }
-    inMemoryDB.users.push(user);
-    return user;
-  },
-  update: async (user) => {
-    const index = inMemoryDB.users.findIndex((i) => i.id === user.id);
-    if (index >= 0) {
-      inMemoryDB.users[index] = user;
-      return inMemoryDB.users[index];
-    }
-
-    return null;
-  },
-  delete: async (user) => {
-    const index = inMemoryDB.users.findIndex((i) => i.id === user.id);
-
-    if (index >= 0) {
-      inMemoryDB.users.splice(index, 1);
-      return user;
-    }
-
-    return null;
-  },
-  getById: async (id) => {
-    return inMemoryDB.users.find((i) => i.id === id);
-  },
-};
+}
